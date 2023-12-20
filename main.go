@@ -8,14 +8,12 @@ func main() {
 	rating := 8.4
 	moivetype := "Sci-Fi"
 	superhero := true
-	fmt.Println("เรื่อง:", movie)
-	fmt.Println("ปี:", year)
-	fmt.Println("เรตติ้ง:", rating)
-	fmt.Println("ประเภท:", moivetype)
-	fmt.Println("ซุปเปอร์ฮีโร่:", superhero)
+	r := '😁'
 
-	var r rune = '😁'
-	fmt.Println("r:", r)
-	fmt.Printf("r: %c\n", r)
-	fmt.Printf("r: %#v\n", r)
+	fmt.Printf("เรื่อง: %s\n", movie)
+	fmt.Printf("ปี: %d\n", year)
+	fmt.Printf("เรตติ้ง: %.1f\n", rating)
+	fmt.Printf("ประเภท %s\n", moivetype)
+	fmt.Printf("ซุปเปอร์ฮีโร่ %t\n", superhero)
+	fmt.Printf("ซุปเปอร์ฮีโร่ %c", r)
 }
