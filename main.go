@@ -1,21 +1,32 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
-	movie := "Avengers: Endgame"
-	year := 2019
 	rating := 8.4
-	moivetype := "Sci-Fi"
-	superhero := true
-	fmt.Println("เรื่อง:", movie)
-	fmt.Println("ปี:", year)
-	fmt.Println("เรตติ้ง:", rating)
-	fmt.Println("ประเภท:", moivetype)
-	fmt.Println("ซุปเปอร์ฮีโร่:", superhero)
+	/*
+		if rating < 5.0 {
+			fmt.Println("Dis")
+		} else if rating >= 5.0 && rating < 7.0 {
+			fmt.Println("Nor")
+		} else if rating >= 7.0 && rating < 10.0 {
+			fmt.Println("Good")
+		} else {
+			fmt.Println("Nil")
+		}
+	*/
 
-	var r rune = '😁'
-	fmt.Println("r:", r)
-	fmt.Printf("r: %c\n", r)
-	fmt.Printf("r: %#v\n", r)
+	switch {
+	case rating < 5.0:
+		fmt.Println("Dis")
+	case rating >= 5.0 && rating < 7.0:
+		fmt.Println("Nor")
+	case rating >= 7.0 && rating < 10.0:
+		fmt.Println("Good")
+	default:
+		fmt.Println("Nil")
+	}
+
 }
