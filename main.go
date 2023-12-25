@@ -4,29 +4,24 @@ import (
 	"fmt"
 )
 
-func main() {
-	rating := 8.4
-	/*
-		if rating < 5.0 {
-			fmt.Println("Dis")
-		} else if rating >= 5.0 && rating < 7.0 {
-			fmt.Println("Nor")
-		} else if rating >= 7.0 && rating < 10.0 {
-			fmt.Println("Good")
-		} else {
-			fmt.Println("Nil")
-		}
-	*/
-
+func emote(rating float64) string {
 	switch {
 	case rating < 5.0:
-		fmt.Println("Dis")
+		return "Dis"
 	case rating >= 5.0 && rating < 7.0:
-		fmt.Println("Nor")
+		return "Nor"
 	case rating >= 7.0 && rating < 10.0:
-		fmt.Println("Good")
+		return "Good"
 	default:
-		fmt.Println("Nil")
+		return "Nil"
 	}
+}
+
+func main() {
+
+	fmt.Println(emote(4.9))
+	fmt.Println(emote(5.0))
+	fmt.Println(emote(7.0))
+	fmt.Println(emote(15.0))
 
 }
