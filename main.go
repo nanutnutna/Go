@@ -19,9 +19,14 @@ func emote(rating float64) string {
 
 func main() {
 
-	fmt.Println(emote(4.9))
-	fmt.Println(emote(5.0))
-	fmt.Println(emote(7.0))
-	fmt.Println(emote(15.0))
+	genres := [...]string{"Action", "Adventure", "Fantasy"}
+	fmt.Printf("before for loop: %#v\n", genres)
+	for i := 0; i < len(genres); i++ {
+		genres[i] = "Movie: " + genres[i]
+	}
+
+	for _, v := range genres {
+		fmt.Println(v)
+	}
 
 }
