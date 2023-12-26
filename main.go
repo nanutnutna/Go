@@ -29,4 +29,11 @@ func main() {
 		fmt.Println(v)
 	}
 
+	xs := []float64{4, 5, 7, 8, 3, 8, 0}
+	ys := []float64{7, 2, 10, 9, 7}
+	var vote []float64
+
+	vote = append(xs, ys...)
+
+	fmt.Println(vote[5:9])
 }
