@@ -1,8 +1,14 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
+
+type movie struct {
+	name        string
+	year        int
+	rating      float32
+	genres      []string
+	isSuperHero bool
+}
 
 func emote(rating float64) string {
 	switch {
@@ -17,23 +23,32 @@ func emote(rating float64) string {
 	}
 }
 
+func (m movie) info() {
+	fmt.Printf("%v", m.name)
+	fmt.Printf("(%d) ", m.year)
+	fmt.Printf("- (%.2f)\n", m.rating)
+	fmt.Printf("Genres:\n")
+	fmt.Printf("\t\t\t     %s\n", m.genres[0])
+	fmt.Printf("\t\t\t     %s", m.genres[1])
+}
+
 func main() {
 
-	genres := [...]string{"Action", "Adventure", "Fantasy"}
-	fmt.Printf("before for loop: %#v\n", genres)
-	for i := 0; i < len(genres); i++ {
-		genres[i] = "Movie: " + genres[i]
+	var mvs []movie
+	movie1 := movie{name: "Aveg: EN", year: 2019, rating: 8.4, genres: []string{"Ac", "Dra"}, isSuperHero: true}
+	movie2 := movie{name: "Aveg: In", year: 2018, rating: 8.4, genres: []string{"Ac", "Sc"}, isSuperHero: true}
+	mvs = append(mvs, movie1, movie2)
+	for _, v := range mvs {
+		fmt.Printf("%#v\n", v)
 	}
 
-	for _, v := range genres {
-		fmt.Println(v)
+	ae := movie{
+		name:        "Avengers: Endgame",
+		year:        2019,
+		rating:      8.4,
+		genres:      []string{"Action", "Drama"},
+		isSuperHero: true,
 	}
 
-	xs := []float64{4, 5, 7, 8, 3, 8, 0}
-	ys := []float64{7, 2, 10, 9, 7}
-	var vote []float64
-
-	vote = append(xs, ys...)
-
-	fmt.Println(vote[5:9])
+	ae.info()
 }
