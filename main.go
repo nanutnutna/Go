@@ -32,6 +32,30 @@ func (m movie) info() {
 	fmt.Printf("\t\t\t     %s", m.genres[1])
 }
 
+func simpleArraySum(ar []int32) int32 {
+	// Write your code here
+	var total int32
+	for _, value := range ar {
+		total += value
+	}
+	return total
+
+}
+
+func compareTriplets(a []int32, b []int32) []int32 {
+	var alice, bob int32
+	var result []int32
+	for i := 0; i < len(a) && i < len(b); i++ {
+		if a[i] > b[i] {
+			alice += 1
+		} else if a[i] < b[i] {
+			bob += 1
+		}
+	}
+	result = append(result, alice, bob)
+	return result
+}
+
 func main() {
 
 	var mvs []movie
@@ -51,4 +75,7 @@ func main() {
 	}
 
 	ae.info()
+
+	var price int = 1
+	fmt.Println(price)
 }
