@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type voter interface {
 	addVote(rating float64)
@@ -69,6 +72,14 @@ func compareTriplets(a []int32, b []int32) []int32 {
 	return result
 }
 
+func WordCount(s string) map[string]int {
+	r := map[string]int{}
+	for _, v := range strings.Fields(s) {
+		r[v] += 1
+	}
+	return r
+}
+
 func main() {
 
 	var mvs []movie
@@ -109,4 +120,8 @@ func main() {
 	//eg.addVote(8)
 	vote(eg, 8)
 	fmt.Println("votes:", eg.votes)
+
+	s := "If it look like a duck swims like a duck and quacks like a duck then it probably is a duck"
+	w := WordCount(s)
+	fmt.Printf("%#v\n", w)
 }
