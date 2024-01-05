@@ -13,7 +13,19 @@ type movie struct {
 	IsSuperHero bool     `json:"isSuperHero"`
 }
 
+func Devisable(start, end int) []int {
+	var result = []int{}
+	for i := start; i <= end; i++ {
+		if i%7 == 0 && i%5 != 0 {
+			result = append(result, i)
+		}
+	}
+	return result
+}
+
 func main() {
+
+	fmt.Printf("%#v\n", Devisable(2000, 3000))
 
 	body := `[
 	{
