@@ -1,8 +1,6 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 type movie struct {
 	Title       string   `json:"title"`
@@ -54,6 +52,44 @@ func solution(nums []int) int {
 	return result
 }
 
+func twoSum(nums []int, target int) []int {
+	result := []int{}
+	for i := 0; i < len(nums); i++ {
+		for j := i + 1; j < len(nums); j++ {
+			if nums[i]+nums[j] == target {
+				result = append(result, i, j)
+			}
+		}
+	}
+	return result
+}
+
+type volumer interface {
+	Volume() float64
+}
+
+type cube struct {
+	edge float64
+} // edge x edge x edge
+
+type triangularPrism struct {
+	base     float64
+	attitude float64
+	height   float64
+} // 0.5 x base x attitude x height
+
+func VolumeOf(v volumer) float64 {
+	return v.Volume()
+}
+
+func (c cube) Volume() float64 {
+	return c.edge * c.edge * c.edge
+}
+
+func (t triangularPrism) Volume() float64 {
+	return 0.5 * t.base * t.attitude * t.height
+}
+
 func main() {
 
 	/*
@@ -94,7 +130,11 @@ func main() {
 	*/
 
 	//nums := []int{3, 8, 2, 3, 3, 2}
-	nums := []int{2, 2, 4, 4, 4}
-	fmt.Println(solution(nums))
+	tri := triangularPrism{
+		base:     10,
+		attitude: 20,
+		height:   10,
+	}
+	fmt.Println(tri.Volume())
 
 }
