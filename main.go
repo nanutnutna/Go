@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 type movie struct {
 	Title       string   `json:"title"`
@@ -90,6 +93,23 @@ func (t triangularPrism) Volume() float64 {
 	return 0.5 * t.base * t.attitude * t.height
 }
 
+func maxArea(height []int) int {
+	result := -1.0
+	for i := 0; i < len(height); i++ {
+		w := 0
+		for j := i + 1; j < len(height); j++ {
+			w++
+			min := math.Min(float64(height[i]), float64(height[j]))
+			area := min * float64(w)
+			//fmt.Printf("x %#v, y %#v , wid %#v, area %#v\n", height[i], height[j], w, area)
+			if area > result {
+				result = area
+			}
+		}
+	}
+	return int(result)
+}
+
 func main() {
 
 	/*
@@ -129,12 +149,7 @@ func main() {
 		fmt.Println(containsDuplicate(nums))
 	*/
 
-	//nums := []int{3, 8, 2, 3, 3, 2}
-	tri := triangularPrism{
-		base:     10,
-		attitude: 20,
-		height:   10,
-	}
-	fmt.Println(tri.Volume())
+	height := []int{1, 8, 6, 2, 5, 4, 8, 3, 7}
+	fmt.Println(maxArea(height))
 
 }
