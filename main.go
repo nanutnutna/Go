@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 )
 
 type movie struct {
@@ -94,20 +93,33 @@ func (t triangularPrism) Volume() float64 {
 }
 
 func maxArea(height []int) int {
-	result := -1.0
-	for i := 0; i < len(height); i++ {
-		w := 0
-		for j := i + 1; j < len(height); j++ {
-			w++
-			min := math.Min(float64(height[i]), float64(height[j]))
-			area := min * float64(w)
-			//fmt.Printf("x %#v, y %#v , wid %#v, area %#v\n", height[i], height[j], w, area)
-			if area > result {
-				result = area
-			}
+	left := 0
+	right := len(height) - 1
+	maxarea := 0
+	for t := 0; t < len(height); t++ {
+		tall := min(height[left], height[right])
+		area := tall * (right - left)
+		if area > maxarea {
+			maxarea = area
+		}
+		if height[left] > height[right] {
+			right--
+		} else {
+			left++
 		}
 	}
-	return int(result)
+	return maxarea
+}
+
+func min(a, b int) int {
+	if a == b {
+		return a
+	}
+	if a < b {
+		return a
+	} else {
+		return b
+	}
 }
 
 func main() {
@@ -149,7 +161,7 @@ func main() {
 		fmt.Println(containsDuplicate(nums))
 	*/
 
-	height := []int{1, 8, 6, 2, 5, 4, 8, 3, 7}
+	height := []int{1, 2, 3, 4, 5, 25, 24, 3, 4}
 	fmt.Println(maxArea(height))
 
 }
