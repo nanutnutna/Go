@@ -122,6 +122,27 @@ func min(a, b int) int {
 	}
 }
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+
+func findWordsContaining(words []string, x byte) map[int]int {
+	result := map[int]int{}
+	for idx, v := range words {
+		for i := 0; i < len(words); i++ {
+			if string(x) == string([]rune(v)[i]) {
+				result[idx] = idx
+			}
+		}
+	}
+	return result
+}
+
+func compareString(word string) {
+	converter := map[rune]rune{}
+	for _, runeValue := range word {
+		converter[runeValue] = runeValue
+	}
+}
+
 func main() {
 
 	/*
@@ -161,7 +182,8 @@ func main() {
 		fmt.Println(containsDuplicate(nums))
 	*/
 
-	height := []int{1, 2, 3, 4, 5, 25, 24, 3, 4}
-	fmt.Println(maxArea(height))
+	word := []string{"leet", "code"}
+	x := byte('e')
+	fmt.Println(findWordsContaining(word, x))
 
 }
