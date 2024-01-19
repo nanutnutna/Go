@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"unicode/utf8"
 )
 
 type movie struct {
@@ -143,6 +144,12 @@ func compareString(word string) {
 	}
 }
 
+func test(word string) {
+	for _, v := range word {
+		fmt.Println(string(v))
+	}
+}
+
 func main() {
 
 	/*
@@ -182,8 +189,12 @@ func main() {
 		fmt.Println(containsDuplicate(nums))
 	*/
 
-	word := []string{"leet", "code"}
-	x := byte('e')
-	fmt.Println(findWordsContaining(word, x))
-
+	/*
+		word := []string{"leet", "code"}
+		x := byte('e')
+		fmt.Println(findWordsContaining(word, x))
+	*/
+	word := "เทส"
+	fmt.Print(utf8.RuneCountInString(word))
+	test(word)
 }
