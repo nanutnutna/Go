@@ -2,16 +2,8 @@ package main
 
 import (
 	"fmt"
-	"unicode/utf8"
+	"math"
 )
-
-type movie struct {
-	Title       string   `json:"title"`
-	Year        int      `json:"year"`
-	Rating      float32  `json:"rating"`
-	Genres      []string `json:"genres"`
-	IsSuperHero bool     `json:"isSuperHero"`
-}
 
 func Devisable(start, end int) []int {
 	var result = []int{}
@@ -150,8 +142,75 @@ func test(word string) {
 	}
 }
 
+func isValid(s string) bool {
+	parentheses := map[string]int{
+		"(": 0,
+		")": 0,
+		"{": 0,
+		"}": 0,
+		"[": 0,
+		"]": 0,
+	}
+
+	for _, v := range s {
+		parentheses[string(v)] += 1
+	}
+
+	if parentheses["("] == parentheses[")"] {
+		if parentheses["{"] == parentheses["}"] {
+			if parentheses["["] == parentheses["]"] {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func myPow(x float64, n int) float64 {
+	up := float64(n)
+	result := math.Pow(x, up)
+	return float64(result)
+
+}
+
+type course struct {
+	name, instructor string
+	price            int
+}
+
+func discount(c *course) int {
+	c.price = c.price - 599
+	fmt.Println("discount:", c.price)
+	return c.price
+}
+
+type movie struct {
+	title       string
+	year        int
+	rating      float32
+	votes       []float64
+	genres      []string
+	isSuperHero bool
+}
+
+func (m *movie) addVote(num float64) {
+	m.votes = append(m.votes, num)
+}
+
 func main() {
 
+	eg := &movie{
+		title:       "Avengers: Endgame",
+		year:        2019,
+		rating:      8.4,
+		votes:       []float64{7, 8, 9, 10, 6, 9, 9, 10, 8},
+		genres:      []string{"Action", "Drama"},
+		isSuperHero: true,
+	}
+
+	eg.addVote(8)
+
+	fmt.Println("Votes:", eg.votes)
 	/*
 
 		fmt.Printf("%#v\n", Devisable(2000, 3000))
@@ -194,7 +253,10 @@ func main() {
 		x := byte('e')
 		fmt.Println(findWordsContaining(word, x))
 	*/
-	word := "เทส"
-	fmt.Print(utf8.RuneCountInString(word))
-	test(word)
+
+	/*
+		word := "เทส"
+		fmt.Print(utf8.RuneCountInString(word))
+		test(word)
+	*/
 }
