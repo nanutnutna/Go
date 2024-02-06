@@ -3,6 +3,9 @@ package main
 import (
 	"fmt"
 	"math"
+	"slices"
+	"sort"
+	"strconv"
 )
 
 func Devisable(start, end int) []int {
@@ -197,6 +200,86 @@ func (m *movie) addVote(num float64) {
 	m.votes = append(m.votes, num)
 }
 
+func isHappy(n int) bool {
+	tostr := strconv.Itoa(n)
+	set := map[string]int{}
+	for true {
+		result := 0
+		set[tostr] += 1
+		if set[tostr] > 1 {
+			break
+		}
+		for _, v := range tostr {
+			num, _ := strconv.Atoi(string(v))
+			result += num * num
+		}
+		if result == 1 {
+			return true
+		}
+		tostr = strconv.Itoa(result)
+	}
+	return false
+}
+
+func isValidP(s string) bool {
+	parentheses := map[string]string{
+		"(": ")",
+		"{": "}",
+		"[": "]",
+	}
+	stack := []string{}
+
+	for i := 0; i < len(s)/2; i++ {
+		stack = append(stack, string(s[i]))
+	}
+
+	for i := len(s) / 2; i < len(s); i++ {
+		if stack[len(stack)-1] == parentheses[string(s[i])] {
+			stack = slices.Delete(stack, len(stack)-2, len(stack)-1)
+		}
+	}
+	if len(stack) == 0 {
+		return true
+	}
+	return false
+}
+
+func kClosest(points [][]int, k int) [][]int {
+	dis := map[int]int{}
+	result := [][]int{}
+	for i, v := range points {
+		ans := 0
+		ans += (v[0] * v[0]) + (v[1] * v[1])
+		dis[i] = ans
+	}
+	sort.SliceStable(dis, func(i, j int) bool { return dis[dis[i]] > dis[dis[j]] })
+	for i := 0; i < k; i++ {
+		result[i] = append(result[i], dis[i])
+	}
+	return result
+}
+
+func canConstruct(ransomNote string, magazine string) bool {
+	map_ransom := map[string]int{}
+	for _, v := range ransomNote {
+		map_ransom[string(v)] += 1
+	}
+
+	for _, v := range magazine {
+		_, ok := map_ransom[string(v)]
+		if ok && map_ransom[string(v)] != 0 {
+			map_ransom[string(v)] -= 1
+		}
+	}
+
+	for _, v := range map_ransom {
+		if v > 0 {
+			return false
+		}
+	}
+	return true
+}
+
 func main() {
 
 	eg := &movie{
@@ -210,42 +293,43 @@ func main() {
 
 	eg.addVote(8)
 
-	fmt.Println("Votes:", eg.votes)
 	/*
+		fmt.Println("Votes:", eg.votes)
+		/*
 
-		fmt.Printf("%#v\n", Devisable(2000, 3000))
+			fmt.Printf("%#v\n", Devisable(2000, 3000))
 
-		body := `[
-		{
-			"imdbID": "tt4154796",
-			"title": "Avengers: Endgame",
-			"year": 2019,
-			"rating": 8.4,
-			"genres": ["Action","Drama"],
-			"isSuperHero": true
-		},
-		{
-			"imdbID": "tt4154756",
-			"title" : "Avengers: Infinity War",
-			"year" : 2018,
-			"rating": 8.4,
-			"genres": ["Action", "Sci-Fi"],
-			"isSuperHero": true
-		}
-		]`
+			body := `[
+			{
+				"imdbID": "tt4154796",
+				"title": "Avengers: Endgame",
+				"year": 2019,
+				"rating": 8.4,
+				"genres": ["Action","Drama"],
+				"isSuperHero": true
+			},
+			{
+				"imdbID": "tt4154756",
+				"title" : "Avengers: Infinity War",
+				"year" : 2018,
+				"rating": 8.4,
+				"genres": ["Action", "Sci-Fi"],
+				"isSuperHero": true
+			}
+			]`
 
-		ms := []movie{}
-		err := json.Unmarshal([]byte(body), &ms)
-		fmt.Printf("%#v\n", err)
-		fmt.Printf("%#v\n", ms)
+			ms := []movie{}
+			err := json.Unmarshal([]byte(body), &ms)
+			fmt.Printf("%#v\n", err)
+			fmt.Printf("%#v\n", ms)
 
-		for _, v := range ms {
-			fmt.Println(v.Title)
-		}
+			for _, v := range ms {
+				fmt.Println(v.Title)
+			}
 
 
-		nums := []int{1, 2, 3, 1}
-		fmt.Println(containsDuplicate(nums))
+			nums := []int{1, 2, 3, 1}
+			fmt.Println(containsDuplicate(nums))
 	*/
 
 	/*
@@ -259,4 +343,5 @@ func main() {
 		fmt.Print(utf8.RuneCountInString(word))
 		test(word)
 	*/
+
 }
