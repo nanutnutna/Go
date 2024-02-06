@@ -280,6 +280,23 @@ func canConstruct(ransomNote string, magazine string) bool {
 	return true
 }
 
+// 389
+func findTheDifference(s string, t string) byte {
+	init := make(map[rune]int)
+	var result byte
+	for _, v := range s {
+		init[v] += 1
+	}
+
+	for _, v := range t {
+		_, ok := init[v]
+		if !ok {
+			result = byte(v)
+		}
+	}
+	return result
+}
+
 func main() {
 
 	eg := &movie{
@@ -343,5 +360,8 @@ func main() {
 		fmt.Print(utf8.RuneCountInString(word))
 		test(word)
 	*/
+	s := "abcd"
+	t := "abcde"
+	fmt.Println(findTheDifference(s, t))
 
 }
