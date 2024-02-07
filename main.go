@@ -6,6 +6,7 @@ import (
 	"slices"
 	"sort"
 	"strconv"
+	"strings"
 )
 
 func Devisable(start, end int) []int {
@@ -297,6 +298,27 @@ func findTheDifference(s string, t string) byte {
 	return result
 }
 
+func staircase(n int32) {
+	// Write your code here
+	for i := 1; i <= int(n); i++ {
+		fmt.Printf("%s%s\n", strings.Repeat(" ", int(n)-i), strings.Repeat("#", i))
+	}
+
+}
+
+func miniMaxSum(arr []int32) {
+	// Write your code here
+	sort.Ints(arr)
+	min, max := 0, 0
+	for i := 0; i < len(arr)-1; i++ {
+		min += int(arr[i])
+	}
+	for i := 1; i < len(arr); i++ {
+		max += int(arr[i])
+	}
+	fmt.Printf("%d %d", min, max)
+}
+
 func main() {
 
 	eg := &movie{
@@ -360,8 +382,5 @@ func main() {
 		fmt.Print(utf8.RuneCountInString(word))
 		test(word)
 	*/
-	s := "abcd"
-	t := "abcde"
-	fmt.Println(findTheDifference(s, t))
-
+	staircase(10)
 }
