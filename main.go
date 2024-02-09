@@ -306,17 +306,87 @@ func staircase(n int32) {
 
 }
 
-func miniMaxSum(arr []int32) {
-	// Write your code here
-	sort.Ints(arr)
-	min, max := 0, 0
-	for i := 0; i < len(arr)-1; i++ {
-		min += int(arr[i])
+func Solution_(A []int) int {
+	// Implement your solution here
+	sort.Ints(A)
+	if A[len(A)-1] < 0 {
+		return 1
 	}
-	for i := 1; i < len(arr); i++ {
-		max += int(arr[i])
+	mapping := make(map[int]int)
+	result := []int{}
+	for _, v := range A {
+		_, ok := mapping[v]
+		if !ok {
+			mapping[v] += 1
+			result = append(result, v)
+		}
 	}
-	fmt.Printf("%d %d", min, max)
+
+	for i := 0; i < len(result)-1; i++ {
+		if result[i+1] != result[i]+1 {
+			return result[i] + 1
+		}
+	}
+	return A[len(A)-1] + 1
+}
+
+func Solution(A []int) int {
+	// Implement your solution here
+	mapping := map[string]int{}
+	for _, v := range A {
+		mapping[strconv.Itoa(v)] += 1
+	}
+
+	for key, val := range mapping {
+		if val == 1 {
+			ans, _ := strconv.Atoi(key)
+			return ans
+		}
+	}
+	return -1
+}
+
+/*
+func isSubsequence(s string, t string) bool {
+    // consider i for "s" and j for "t"
+    i, j := 0, 0
+    length := len(t)
+
+    for j < length {
+        if i < len(s) && s[i] == t[j] {
+            i++
+        }
+        j++
+    }
+
+    return len(s) == i
+}
+*/
+
+func isSubsequence(s string, t string) bool {
+	stack := []rune{}
+	check := map[rune]int{}
+	for _, val := range s {
+		check[val]++
+		stack = append(stack, val)
+	}
+
+	if len(stack) == 0 {
+		return true
+	}
+
+	for i := len(t) - 1; i >= 0; i-- {
+		_, ok := check[rune(t[i])]
+		if ok {
+			if rune(t[i]) == stack[len(stack)-1] {
+				stack = stack[:len(stack)-1]
+				if len(stack) == 0 {
+					return true
+				}
+			}
+		}
+	}
+	return false
 }
 
 func main() {
@@ -382,5 +452,7 @@ func main() {
 		fmt.Print(utf8.RuneCountInString(word))
 		test(word)
 	*/
-	staircase(10)
+	s := ""
+	t := "ahbgdc"
+	fmt.Println(isSubsequence(s, t))
 }
