@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math"
-	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -222,29 +221,6 @@ func isHappy(n int) bool {
 	return false
 }
 
-func isValidP(s string) bool {
-	parentheses := map[string]string{
-		"(": ")",
-		"{": "}",
-		"[": "]",
-	}
-	stack := []string{}
-
-	for i := 0; i < len(s)/2; i++ {
-		stack = append(stack, string(s[i]))
-	}
-
-	for i := len(s) / 2; i < len(s); i++ {
-		if stack[len(stack)-1] == parentheses[string(s[i])] {
-			stack = slices.Delete(stack, len(stack)-2, len(stack)-1)
-		}
-	}
-	if len(stack) == 0 {
-		return true
-	}
-	return false
-}
-
 func kClosest(points [][]int, k int) [][]int {
 	dis := map[int]int{}
 	result := [][]int{}
@@ -389,6 +365,33 @@ func isSubsequence(s string, t string) bool {
 	return false
 }
 
+func IsValidSubsequence(array []int, sequence []int) bool {
+	i, j := 0, 0
+	for i < len(array) && j < len(sequence) {
+		if array[i] == sequence[j] {
+			j++
+		}
+		i++
+	}
+	return j == len(sequence)
+}
+
+func majorityElement(nums []int) int {
+	floor := int(math.Ceil(float64(len(nums)) / 2.0))
+	count := map[int]int{}
+	result := 0
+	for _, v := range nums {
+		count[v]++
+	}
+	for key, val := range count {
+		if val >= floor {
+			result = key
+			break
+		}
+	}
+	return result
+}
+
 func main() {
 
 	eg := &movie{
@@ -452,7 +455,6 @@ func main() {
 		fmt.Print(utf8.RuneCountInString(word))
 		test(word)
 	*/
-	s := ""
-	t := "ahbgdc"
-	fmt.Println(isSubsequence(s, t))
+	nums := []int{6, 5, 5}
+	fmt.Println(majorityElement(nums))
 }
